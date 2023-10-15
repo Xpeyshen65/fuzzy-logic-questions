@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Результат тестирования</h1>
+
+    <p>Вопросы с правильным ответом</p>
+    <ul>
+        {% for result in successQuestionResults %}
+            <li>
+                {{ result.question.text }}
+                <ul>
+                    {% for answer in result.answers %}
+                        <li>{{ answer.text }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <p>Вопросы с неправильным ответом</p>
+    <ul>
+        {% for result in errorQuestionResults %}
+            <li>
+                {{ result.question.text }}
+                <ul>
+                    {% for answer in result.answers %}
+                        <li>{{ answer.text }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ retryUrl }}">Пройти заного</a>
+{% endblock %}

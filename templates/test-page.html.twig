@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Тест пользователя</h1>
+
+    <form method="post">
+        {% for question in questions %}
+            <p class="text-break">{{ question.text }}</p>
+            <input type="hidden" name="questionIds[]" value="{{ question.id }}">
+            <ol>
+                {% for answer in question.answers %}
+                    <li>
+                        <label>
+                            <input type="checkbox"
+                                   name="answerIds[]"
+                                   value="{{ answer.id }}"> {{ answer.text }}
+                        </label>
+                    </li>
+                {% endfor %}
+            </ol>
+            <hr class="hr"/>
+        {% endfor %}
+
+        <input type="submit" value="Показать ответ">
+    </form>
+
+    <script>
+        {#let questionIds = [];#}
+        {#document.getElementsByName("question").forEach(#}
+        {#    (questionElement) => {#}
+        {#        questionIds.push(#}
+        {#            questionElement.getAttribute('value')#}
+        {#        );#}
+        {#    }#}
+        {#);#}
+
+        {#let answerIds = [];#}
+        {#document.getElementsByName("answer").forEach(#}
+        {#    (questionElement) => {#}
+        {#        answerIds.push(#}
+        {#            questionElement.getAttribute('data-value')#}
+        {#        );#}
+        {#    }#}
+        {#);#}
+
+        {#let form = document.getElementById("question-form");#}
+        {#form.addEventListener("submit", function(event) {#}
+        {#    event.preventDefault();#}
+
+        {#    let options = {#}
+        {#        method: 'POST',#}
+        {#        headers: {#}
+        {#            'Content-Type': 'application/json'#}
+        {#        },#}
+        {#        body: JSON.stringify({questionIds, answerIds})#}
+        {#    };#}
+
+        {#    fetch('/check-test', options)#}
+        {#        .then(function(response) {#}
+        {#            {{ successUrl }}#}
+        {#        })#}
+        {#        .catch(function(error) {#}
+        {#            alert('Возникла проблема');#}
+        {#            console.error(error);#}
+        {#        });#}
+        {#});#}
+    </script>
+{% endblock %}
